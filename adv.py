@@ -50,6 +50,7 @@ def bft():
     
     # while loop that'll run only if the length of the visited set is less than the length of the room graph
     while len(visited) < len(room_graph):
+        succes = False
         # set the starting/current room id to cur_room
         cur_room = player.current_room.id
         # set the current room path/direction to room_path
@@ -86,7 +87,7 @@ def bft():
             s.push(move_rooms)
             traversal_path.append(move_rooms)
             player.travel(move_rooms)
-            # add to the path my next room
+            # add to the path my next rooms
             next_room = player.current_room.id
             path[cur_room][move_rooms] = next_room
             change_directions = get_direction(move_rooms)
