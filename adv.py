@@ -9,9 +9,9 @@ world = World()
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
-# map_file = "maps/test_line.txt"
+map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
-map_file = "maps/test_loop.txt"
+# map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
 # map_file = "maps/main_maze.txt"
 
@@ -28,6 +28,7 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+# get the opposite direction of the current room in order to move rooms
 def get_direction(direction):
     if direction == 'n':
         return 's'
@@ -38,8 +39,7 @@ def get_direction(direction):
     if direction == 'w':
         return 'e'
 
-
-def dft():
+def bft():
     path = {}
     visited = set()
     s = Stack()
@@ -54,43 +54,28 @@ def dft():
         cur_room = player.current_room.id
         # set the current room path/direction to room_path
         room_path = player.current_room.get_exits()
-        # checl to see if cur_room is in visted, if not add it to the visited set
+        # check to see if cur_room is in visted, if not add it to the visited set
         if cur_room not in visited:
             visited.add(cur_room)
+        # check to see if the direction is in path of the curent room
         for direction in path[cur_room]:
+            # if the direction isn't there then set the ? to 0
             if direction not in room_path:
                 path[cur_room][direction] = 0
 
+        # count to see how many rooms we don't know
         num_directions = 0
         for direction in path[cur_room]:
+            # if the direction is not ? increment by 1
             if path[cur_room][direction] != '?':
-                num_directions += 1
-
+            # if a room isnt known then we move rooms towards the direction that is known
             elif not 0:
                  move_rooms = direction
-
+        # if all rooms are known
         if num_directions == 4:
-            success = True
-
-        if success is True:
-            last_move = s.pop()
-            move_rooms = get_direction(last_move)
-            traversal_path.append(move_rooms)
-            player.travel(move_rooms)
-
-        else:
-            s.push(move_rooms)
-            traversal_path.append(move_rooms)
-            player.travel(move_rooms)
-            next_room = player.current_room.id
-            path[cur_room][move_rooms] = next_room
-            change_directions = get_direction(move_rooms)
-            path[next_room][change_directions] = cur_room
-            visited.add(next_room)
-
-
+            
     
-
+bft()
 # print('Starting ROOM ID: ', player.current_room.id)
 
 # TRAVERSAL TEST - DO NOT MODIFY
