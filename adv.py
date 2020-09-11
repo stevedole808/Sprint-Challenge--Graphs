@@ -73,6 +73,25 @@ def bft():
                  move_rooms = direction
         # if all rooms are known
         if num_directions == 4:
+            success = True
+        
+        # pop the last move in order to go down a differnet path and add where I'm going to the traversal path
+        if success is True:
+            last_move = s.pop()
+            move_rooms = get_direction(last_move)
+            traversal_path.append(move_rooms)
+            player.travel(move_rooms)
+        # if I don't have to backtrack
+        else:
+            s.push(move_rooms)
+            traversal_path.append(move_rooms)
+            player.travel(move_rooms)
+            # add to the path my next room
+            next_room = player.current_room.id
+            path[cur_room][move_rooms] = next_room
+            change_directions = get_direction(move_rooms)
+            path[next_room][change_directions] = cur_room
+            visited.add(next_room)
             
     
 bft()
