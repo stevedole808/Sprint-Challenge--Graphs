@@ -9,11 +9,11 @@ world = World()
 
 
 # You may uncomment the smaller graphs for development and testing purposes.
-map_file = "maps/test_line.txt"
+# map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-# map_file = "maps/main_maze.txt"
+map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
@@ -50,7 +50,7 @@ def bft():
     
     # while loop that'll run only if the length of the visited set is less than the length of the room graph
     while len(visited) < len(room_graph):
-        succes = False
+        success = False
         # set the starting/current room id to cur_room
         cur_room = player.current_room.id
         # set the current room path/direction to room_path
@@ -70,6 +70,7 @@ def bft():
             # if the direction is not ? increment by 1
             if path[cur_room][direction] != '?':
             # if a room isnt known then we move rooms towards the direction that is known
+                num_directions += 1
             elif not 0:
                  move_rooms = direction
         # if all rooms are known
